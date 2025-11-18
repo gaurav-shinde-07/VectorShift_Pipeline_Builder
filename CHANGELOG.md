@@ -1,0 +1,1 @@
+- Added Tailwind configs and styles\n- Updated NodeBase and TextNode to Tailwind\n- Added SubmitModal and toolbar\n- Backend dashboard template and route\n

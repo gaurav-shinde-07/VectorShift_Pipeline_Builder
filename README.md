@@ -1,0 +1,1 @@
+# VectorShift Assessment - Tailwind Pro\n\nFrontend updated with Tailwind and neon theme. Backend includes a small dashboard at /dashboard.
