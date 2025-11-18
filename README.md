@@ -125,8 +125,6 @@ Author: Gaurav Shinde — gauravmshinde017@gmail.com
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Visual assets & screenshots
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Place illustrative screenshots or animated GIFs in ./assets and reference them in this README for a stronger visual showcase.
+![Pipeline Builder Preview](./.assets/vect.png)
 
-<p align="center">
-  <img src="./assets/vect.png" alt="VectorShift preview" width="900" />
-</p>
+---
