@@ -1,113 +1,123 @@
-# VectorShift Assessment - Tailwind Pro
+# VectorShift Pipeline Builder
 
-A frontend built with Tailwind CSS and a neon theme, paired with a backend that includes a small dashboard available at `/dashboard`. This README provides an overview, setup instructions, and a recommended project structure to help you run, develop, and deploy the project.
+A small full‑stack application demonstrating a node-based pipeline builder with a neon Tailwind UI frontend and a FastAPI backend. The app provides an interactive ReactFlow canvas for composing pipelines and a backend DAG validator and dashboard accessible at /dashboard.
 
-## Table of Contents
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Typical Project Structure](#typical-project-structure)
-- [Prerequisites](#prerequisites)
-- [Local Setup](#local-setup)
-- [Environment Variables](#environment-variables)
-- [Running the Dashboard](#running-the-dashboard)
-- [Build & Production](#build--production)
-- [Testing](#testing)
-- [Contributing](#contributing)
-- [License & Contact](#license--contact)
+Status: Prototype — suitable as a foundation for productionization.
 
+Table of contents
+- Overview
+- Highlights
+- Repository layout
+- Quick start
+- Development
+- Backend: dashboard & API
+- Environment variables
+- Scripts
+- Testing
+- Deployment notes
+- Contributing
+- License & contact
 
-## Features
-- 🎨 Neon-Themed Tailwind UI with responsive layout
-- ⚡ ReactFlow-based Canvas for interactive drag-and-drop pipelines
-- 🔢 Math Node with dynamic expression evaluation
-- 🔗 API Node for external HTTP calls
-- 🧪 Formatter Node for templated string output
-- 🔍 Logger Node for debugging data flow
-- 🔀 Conditional Node for branching logic
-- 🧠 Backend DAG Validator using NetworkX
-- 📊 Mini Dashboard at /dashboard (FastAPI)
-- 🧱 Modular node engine ready for extension
+Highlights
+----------
+- Neon-themed Tailwind UI (responsive)
+- ReactFlow-based drag-and-drop pipeline editor
+- Node types: Math, API, Formatter, Logger, Conditional
+- Backend DAG validation and small dashboard (FastAPI)
+- Modular node engine designed for extension
 
-## Tech Stack
-# **Frontend**
-- React + Vite  
-- ReactFlow  
-- Tailwind CSS (Neon theme)  
-- Zustand (State Management) 
-
-# **Backend**
-- FastAPI  
-- Python  
-- NetworkX (DAG Validator)  
-- Uvicorn  
-
-## Project Structure
+Repository layout
+----------------
 VectorShift_Pipelines/
-│
-├── frontend/               # React + Tailwind + ReactFlow UI
-│   ├── src/
-│   ├── public/
-│   ├── tailwind.config.js
-│   └── package.json
-│
-├── backend/                # FastAPI backend + DAG validation
-│   ├── main.py
-│   ├── requirements.txt
-│   └── app/
-│
-├── assets/                 # Images for README
-│
-└── README.md
+├─ frontend/           # React + Vite + Tailwind + ReactFlow UI  
+│  ├─ src/             # components, pages, flows, stores  
+│  ├─ public/  
+│  ├─ package.json  
+│  └─ tailwind.config.js  
+├─ backend/            # FastAPI app, DAG validator, dashboard  
+│  ├─ app/             # routes, services, validators  
+│  ├─ main.py  
+│  └─ requirements.txt  
+├─ assets/             # images used in README or UI  
+└─ README.md
 
-
-## Prerequisites
-- Node.js (LTS recommended)
+Quick start
+-----------
+Prereqs:
+- Node.js (LTS)
 - npm or yarn
-- Git 
 - Python 3.10+
+- Git
 
-## Local Setup
+1) Clone
+   git clone https://github.com/gaurav-shinde-07/VectorShift_Pipeline_Builder
+   cd VectorShift_Pipelines
 
-1. Clone the repository
-   - git clone https://github.com/gaurav-shinde-07/VectorShift_Pipeline_Builder
-   - cd VectorShift_Pipelines
+2) Frontend (dev)
+   cd frontend
+   npm install
+   npm run dev
+   - Frontend default: http://localhost:5173
 
-2. Frontend Setup
-   - cd frontend
-   - npm install
-   - npm run dev
-     
-   - Frontend runs at
-     - http://localhost:5173
+3) Backend (dev)
+   cd backend
+   python -m venv .venv
+   source .venv/bin/activate   # or .venv\Scripts\activate on Windows
+   pip install -r requirements.txt
+   uvicorn main:app --reload --port 8000
+   - Backend: http://localhost:8000
+   - Dashboard: http://localhost:8000/dashboard
 
-3. Backend Setup
-   - cd backend
-   - pip install -r requirements.txt
-   - uvicorn main:app --reload --port 8000
+Development
+-----------
+Frontend
+- Start dev server: npm run dev
+- Build: npm run build
+- Lint / format: add/prefer ESLint + Prettier config as needed
 
-   - Backend runs at
-    - http://localhost:8000
-   - Dashboard :
-    - http://localhost:8000/dashboard
+Backend
+- Run local server with uvicorn (see quick start)
+- Add endpoints under backend/app/routes
+- Unit tests: pytest (add tests/ folder)
 
+Backend: dashboard & API
+------------------------
+- The dashboard endpoint (GET /dashboard) serves a small UI for inspecting pipelines / DAGs.
+- API endpoints (example):
+  - POST /validate — validate a submitted pipeline as DAG (uses NetworkX)
+  - POST /execute — (prototype) run a pipeline locally (engine is modular and extensible)
+- Consult backend/app for concrete routes and models.
 
-## Environment Variables
-Create a `.env` file in the relevant folder (backend or project root). 
-```
+Environment variables
+---------------------
+Create a .env in the appropriate folder (backend or root). Example:
 PORT=8000
 ENV=development
-# Add API keys or DB connection strings as needed
-```
+# Add external API keys or DB strings as required
 
-## Testing
-- npm test
-- pytest
+Security: Never commit secrets.
 
-## Contributing
-- Contributions are welcome!
-- Fork the repo and create a feature branch
-- Follow existing code style and add tests for new logic
-- Open a pull request with a concise description of changes
+Scripts (examples)
+------------------
+- frontend/package.json: dev, build, preview
+- backend: run via uvicorn; consider adding a start script in package.json or Makefile
 
+Testing
+-------
+- Frontend: add Jest / React Testing Library tests
+- Backend: pytest for endpoints and validation logic
 
----
+Contributing
+------------
+- Fork the repository and create a topic branch
+- Keep commits focused and add tests for new behavior
+- Open a PR with a description and rationale
+
+Troubleshooting
+---------------
+- If the frontend cannot reach the backend, confirm CORS settings and ports
+- Use uvicorn --reload during development to pick up backend changes
+
+Acknowledgements
+----------------
+Built with React, ReactFlow, Tailwind CSS and FastAPI. Inspired by modern pipeline editors and node-based tools.
