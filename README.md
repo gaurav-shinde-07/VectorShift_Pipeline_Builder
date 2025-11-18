@@ -1,81 +1,132 @@
 # VectorShift Pipeline Builder
 
-A modern node-based pipeline builder with a neon Tailwind UI frontend and a FastAPI backend. Compose, validate and prototype data-processing pipelines using a drag‑and‑drop ReactFlow canvas; validate DAGs and inspect pipelines via a lightweight backend dashboard.
+A polished node-based pipeline editor with a neon Tailwind UI frontend and a FastAPI backend. Build, validate and prototype data-processing pipelines using an interactive ReactFlow canvas and a backend DAG validator with a lightweight dashboard at /dashboard.
 
-🚀 Features
-- Interactive ReactFlow canvas for drag‑and‑drop pipeline creation
-- Prebuilt node types: Math, API, Formatter, Logger, Conditional
-- Real‑time validation of directed acyclic graphs (DAG) via NetworkX
-- Neon-themed Tailwind UI with responsive layouts
-- FastAPI backend with a small dashboard at /dashboard
-- Modular engine designed for extension and integration
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Key highlights
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+• Neon-designed Tailwind UI — modern, responsive, and accessible  
+• ReactFlow canvas — drag & drop, zoom, pan, and connect nodes  
+• Prebuilt node types — Math, API, Formatter, Logger, Conditional  
+• Backend validation — NetworkX-based DAG checks and diagnostics  
+• Developer-first — modular node engine, TypeScript frontend, FastAPI backend
 
-🛠️ Tech Stack
-- Frontend: React + Vite, TypeScript, Tailwind CSS, ReactFlow, Zustand
-- Backend: FastAPI, Python 3.10+, NetworkX, Uvicorn
-- Optional: Docker for containerized deployment
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Quick links
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Repository root: ./  
+Frontend: ./frontend  
+Backend: ./backend — FastAPI + NetworkX  
+License: ./LICENSE (MIT)
 
-📋 Prerequisites
-- Node.js 18.x (LTS recommended)
-- npm or yarn
-- Python 3.10+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Visual architecture (overview)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Frontend (React + Vite/TS)
+    ├─ ReactFlow canvas (nodes, edges, UI)
+    ├─ Zustand store (state & persistence)
+    └─ Tailwind neon theme (styles & tokens)
+
+Backend (FastAPI + Python)
+    ├─ /validate  -> DAG validation (NetworkX)
+    ├─ /execute   -> prototype pipeline runner
+    └─ /dashboard -> minimal dashboard UI for pipelines
+
+Optional: containerize both with Docker and use environment secrets for keys.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Impressive Feature Summary
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+- Live DAG validation with actionable error messages (cycles, disconnected nodes)  
+- Extensible node engine: add custom node behaviours easily (sync/async)  
+- API-first backend with clear endpoints for validation and execution  
+- Dev ergonomics: Fast refresh (Vite), uvicorn reload, and minimal setup
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prerequisites
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+- Node.js 18.x (LTS recommended)  
+- npm or yarn  
+- Python 3.10+  
 - Git
 
-🔧 Installation & Quick Start
-1. Clone
-   git clone https://github.com/gaurav-shinde-07/VectorShift_Pipeline_Builder
-   cd VectorShift_Pipelines
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Installation & Local Dev (copy/paste)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# Clone
+git clone https://github.com/gaurav-shinde-07/VectorShift_Pipeline_Builder
+cd VectorShift_Pipelines
 
-2. Frontend
-   cd frontend
-   npm install
-   npm run dev
-   - Dev server: http://localhost:5173
+# Frontend
+cd frontend
+npm install
+npm run dev
+# open: http://localhost:5173
 
-3. Backend
-   cd backend
-   python -m venv .venv
-   source .venv/bin/activate     # Windows: .venv\Scripts\activate
-   pip install -r requirements.txt
-   uvicorn main:app --reload --port 8000
-   - API: http://localhost:8000
-   - Dashboard: http://localhost:8000/dashboard
+# Backend
+cd ../backend
+python -m venv .venv
+# macOS / Linux
+source .venv/bin/activate
+# Windows (PowerShell)
+# .\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+uvicorn main:app --reload --port 8000
+# open: http://localhost:8000 and http://localhost:8000/dashboard
 
-🔐 Environment Variables
-Create a `.env` in backend or root. Example:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Environment variables
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Create a .env (backend or root). Example:
 PORT=8000
 ENV=development
-# Add API keys or DB connection strings as needed
-Never commit secrets.
+# Add external API keys or DB connection strings as needed
 
-⚙️ Running & Development
-- Frontend: npm run dev, build: npm run build
-- Backend: uvicorn main:app --reload --port $PORT
-- Consider adding linting (ESLint/Prettier) and tests (Jest, pytest)
+Security: use secret managers for production.
 
-📡 API & Dashboard
-- GET /dashboard — serves the dashboard UI
-- POST /validate — validate submitted pipeline graph (DAG check)
-- POST /execute — (prototype) run pipeline using modular node engine
-Check backend/app for routes and models.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Scripts & Recommended commands
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Frontend (frontend/package.json)
+- dev: start development server
+- build: production bundle
+- preview: serve built bundle locally
 
-🧪 Testing
-- Frontend: Add Jest/RTL tests
-- Backend: pytest — add tests/ to validate DAG logic and endpoints
+Backend
+- uvicorn main:app --reload --port $PORT
+- pytest (once tests are added)
 
-📦 Deployment Notes
-- Frontend: Vercel, Netlify, or static hosting after build
-- Backend: Containerize and deploy to Cloud Run, ECS, or similar ASGI host
-- Use host secret managers for environment variables
-
-🤝 Contributing
-- Fork repo, create feature branch, add focused commits and tests
-- Open a PR with a clear description and rationale
+Consider adding:
+- linting: ESLint + Prettier (frontend)
+- typing checks: TypeScript strict mode and mypy (backend)
 
 
-👥 Authors & Contact
-Gaurav Shinde — initial work  
-For issues or questions: create a GitHub issue or email gauravmshinde017@gmail.com
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Contributing
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. Fork the repo and create a feature branch  
+2. Keep changes focused and include tests for new behaviors  
+3. Open a PR describing the problem and the solution  
+4. Use clear commit messages and follow the repo code style
 
-🙏 Acknowledgements
-Built with React, ReactFlow, Tailwind CSS and FastAPI. Inspired by modern pipeline editors and node‑based tooling.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Project roadmap (suggested)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+- Add authentication & per-user pipeline persistence  
+- Enhance /execute to support asynchronous, long-running nodes  
+- Add visual pipeline test runner and step debugger  
+- Integrate CI for linting, tests, and security scanning
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Contact
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━  
+Author: Gaurav Shinde — gauravmshinde017@gmail.com
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Visual assets & screenshots
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Place illustrative screenshots or animated GIFs in ./assets and reference them in this README for a stronger visual showcase.
+
+<p align="center">
+  <img src="./assets/vect.png" alt="VectorShift preview" width="900" />
+</p>
